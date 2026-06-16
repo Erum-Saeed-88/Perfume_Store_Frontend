@@ -14,7 +14,7 @@ const Hero = () => {
       desc: "Experience the deep, captivating essence of premium Agarwood blended with midnight patchouli and sweet rose-gold vanilla notes.",
       btnText: "EXPLORE OUD",
       link: "/shop",
-      img: "https://paradyseperfumes.com/cdn/shop/files/Oud_set_2.png?v=1745573937&width=2000"
+      img: "https://res.cloudinary.com/dasmmiwtb/image/upload/v1781622184/Oud_set_xujfpq.webp"
     },
     {
       id: 2,

@@ -21,7 +21,7 @@ const Shop = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const { data } = await axios.get('http://localhost:8000/api/products');
+        const { data } = await axios.get('https://perfume-shop-backend-one.vercel.app/api/products');
         setProducts(data);
       } catch (error) {
         console.error("Error fetching shop products", error);

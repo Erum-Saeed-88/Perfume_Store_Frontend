@@ -41,7 +41,7 @@ const AboutStory = () => {
           <div className="absolute inset-0 max-w-[400px] h-[300px] sm:h-[350px] mx-auto rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-rose-400 opacity-20 blur-lg scale-105"></div>
           <div className="relative w-full max-w-[400px] h-[300px] sm:h-[350px] rounded-2xl overflow-hidden border border-stone-800 shadow-2xl">
             <img
-              src="https://surrati.com.pk/cdn/shop/files/Snapinsta.app_421855323_18404141623051943_7383043393513738475_n_1080.jpg?v=1742109812&width=375"
+              src="https://res.cloudinary.com/dasmmiwtb/image/upload/v1781623901/Snapinsta.app_421855323_18404141623051943_7383043393513738475_n_1080_kgcopl.webp"
               alt="Perfume formulation craft"
               className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
             />

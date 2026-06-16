@@ -7,14 +7,14 @@ const TeamSection = () => {
       id: 1,
       name: "Zareen Ahmed",
       role: "Founder & Creative Visionary",
-      image: "https://img.freepik.com/free-photo/portrait-beautiful-woman-with-shopping-bags_329181-18722.jpg?semt=ais_hybrid&w=740&q=80",
+      image: "https://res.cloudinary.com/dasmmiwtb/image/upload/v1781626169/portrait-beautiful-woman-with-shopping-bags_329181-18722_rkg39q.avif",
       bio: "Over 15 years of standard evaluation experience in olfactory arts. Zareen handles the global sourcing channels and signature brand aura."
     },
     {
       id: 2,
       name: "Hamza Malik",
       role: "Digital Operator & Logistics",
-      image: "https://usmansaif.com/img/senior-laravel-vuejs-expert-v1.jpg",
+      image: "https://res.cloudinary.com/dasmmiwtb/image/upload/v1781626249/senior-laravel-vuejs-expert-v1_tbxzgd.jpg",
       bio: "Architect behind the automated secure e-commerce deployment. Hamza commands the warehouse dispatch speedways and user flows."
     },
 
@@ -22,7 +22,7 @@ const TeamSection = () => {
       id: 3,
       name: "Elena Rostova",
       role: "Master Perfumer & Scent Alchemist",
-      image: "https://www.stattimes.com/h-upload/2025/03/07/79692-lubna-allahametihad-cargo.webp",
+      image: "https://res.cloudinary.com/dasmmiwtb/image/upload/v1781626322/79692-lubna-allahametihad-cargo_cecvcq.webp",
       bio: "Graduated from the Royal fields of Grasse, France. Elena curates the structural heart notes and sillage retention matrix formulas."
     }
   ];

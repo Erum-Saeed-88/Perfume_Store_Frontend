@@ -39,7 +39,7 @@ const About = () => {
             <div className="absolute inset-0 max-w-[400px] h-[300px] sm:h-[350px] mx-auto rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-rose-400 opacity-20 blur-lg scale-105"></div>
             <div className="relative w-full max-w-[400px] h-[300px] sm:h-[350px] rounded-2xl overflow-hidden border border-stone-800 shadow-2xl">
               <img 
-                src="https://faunwalk.com/cdn/shop/files/100ml1_60e37f97-e439-4020-a7bf-1ff5c1f7b948.jpg?v=1776842293&width=1946" 
+                src="https://res.cloudinary.com/dasmmiwtb/image/upload/v1781623663/100ml1_60e37f97-e439-4020-a7bf-1ff5c1f7b948_ulaskl.webp" 
                 alt="Perfume formulation craft" 
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
               />
@@ -93,7 +93,7 @@ const About = () => {
             <div className="absolute inset-0 max-w-[400px] h-[300px] sm:h-[350px] mx-auto rounded-2xl bg-gradient-to-r from-rose-400 via-purple-600 to-blue-600 opacity-20 blur-lg scale-105"></div>
             <div className="relative w-full max-w-[400px] h-[300px] sm:h-[350px] rounded-2xl overflow-hidden border border-stone-800 shadow-2xl">
               <img 
-                src="https://ng.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/37/9810883/2.jpg?5502" 
+                src="https://res.cloudinary.com/dasmmiwtb/image/upload/v1781624789/main-image1_ma3fbc.webp" 
                 alt="Luxury perfume bottles raw aesthetic" 
                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
               />

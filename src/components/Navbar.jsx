@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaShoppingBag, FaHeart, FaSun, FaMoon, FaUser, FaSignOutAlt, FaBars, FaTimes, FaSlidersH } from 'react-icons/fa';
+import { FaShoppingBag, FaHeart, FaUser, FaSignOutAlt, FaBars, FaTimes, FaSlidersH } from 'react-icons/fa';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
 
@@ -8,7 +8,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const { cartItems, wishlistItems, theme, toggleTheme } = useContext(CartContext);
+  const { cartItems, wishlistItems } = useContext(CartContext);
   const { user, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -69,10 +69,6 @@ const Navbar = () => {
 
           {/* Icon Controls Section */}
           <div className="hidden md:flex items-center space-x-6">
-            {/* Theme Toggle Button */}
-            <button onClick={toggleTheme} className="text-stone-100 hover:text-rose-300 transition-colors focus:outline-none">
-              {theme === 'dark' ? <FaSun className="w-5 h-5 text-rose-200" /> : <FaMoon className="w-5 h-5" />}
-            </button>
 
             {/* Wishlist Link */}
             <Link to="/wishlist" className="relative text-rose-200 hover:text-rose-300 animate-pulse transition-colors">
@@ -112,15 +108,9 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center space-x-4">
-            <button onClick={toggleTheme} className="text-stone-100 focus:outline-none">
-              {theme === 'dark' ? <FaSun className="w-5 h-5 text-amber-400" /> : <FaMoon className="w-5 h-5" />}
-            </button>
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-stone-100 focus:outline-none">
-              {isMobileMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
-            </button>
-          </div>
-
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-stone-100 md:hidden focus:outline-none">
+            {isMobileMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+          </button>
         </div>
       </div>
 

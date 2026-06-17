@@ -18,7 +18,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post('http://localhost:8000/api/auth/login', {
+      const { data } = await axios.post('https://perfume-shop-backend-one.vercel.app/api/auth/login', {
         email,
         password,
       });

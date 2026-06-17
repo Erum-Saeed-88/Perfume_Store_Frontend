@@ -9,25 +9,25 @@ const Hero = () => {
   const slides = [
     {
       id: 1,
-      tagline: "Midnight Luxury Collection",
-      title: "Scentsation Oud Intense",
-      desc: "Experience the deep, captivating essence of premium Agarwood blended with midnight patchouli and sweet rose-gold vanilla notes.",
-      btnText: "EXPLORE OUD",
+      tagline: "Non-Alchoholic Collection",
+      title:"Essence of Luxury Attar",
+      desc: "Experience the deep, captivating essence of premium Agarwood blended with sweet and strong notes.",
+      btnText: "EXPLORE SHOP",
       link: "/shop",
-      img: "https://res.cloudinary.com/dasmmiwtb/image/upload/v1781622184/Oud_set_xujfpq.webp"
+      img: "https://i.pinimg.com/originals/7f/52/dd/7f52dd1059d939f7f676ab8af07a384a.gif"
     },
     {
       id: 2,
-      tagline: "Elegance For Her",
+      tagline: "Elegance For Women",
       title: "Rose Gold & Orchid Dior",
       desc: "A soft yet dominant symphony of royal orchids, crushed pink berries, and a premium metallic rose-gold aura designed for the modern queen.",
-      btnText: "SHOP WOMEN",
+      btnText: "WOMEN SCENTS",
       link: "/shop?category=Women",
       img: "https://i.pinimg.com/originals/ea/55/0e/ea550ebbdcf012e6e8e3146072128aa4.gif"
     },
     {
       id: 3,
-      tagline: "The Sovereign Identity",
+      tagline: "Sovereign Men Identity",
       title: "Ocean Blue Suavage Dior",
       desc: "Fresh maritime sea salt fused with sharp Italian bergamot, dark vetiver, and an unforgettable magnetic wood trail.",
       btnText: "Men SCENTS",
@@ -58,10 +58,11 @@ const Hero = () => {
           
           {/* LEFT COLUMN: ANIMATED TEXT CONTEXT */}
           <div className="text-left space-y-6 order-2 md:order-1">
+
             {/* Tagline Animation */}
             <span 
               key={`tag-${currentSlide}`} 
-              className="inline-block text-xs md:text-sm font-semibold tracking-widest text-rose-300 uppercase transition-all duration-700 transform translate-y-0 animate-[fadeInDown_0.5s_ease-out]"
+              className="inline-block text-xs font-serif md:text-sm font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-rose-300 animate-pulse p-2 rounded-xl shadow-md uppercase transition-all duration-700 transform translate-y-0 animate-[fadeInDown_0.5s_ease-out]"
             >
               {slides[currentSlide].tagline}
             </span>
@@ -102,7 +103,7 @@ const Hero = () => {
             {/* Real Sliding Imagery Rendering Card */}
             <div 
               key={`img-${currentSlide}`}
-              className="relative w-full max-w-[340px] sm:max-w-[380px] h-[420px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl border border-stone-800 animate-[fadeInRight_0.7s_ease-out]"
+              className="relative w-full max-w-[340px] sm:max-w-[380px] h-[420px] sm:h-[480px] rounded-3xl overflow-hidden shadow-2xl animate-[fadeInRight_0.9s_ease-out]"
             >
               <img 
                 src={slides[currentSlide].img} 

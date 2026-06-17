@@ -19,7 +19,7 @@ const Register = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post('http://localhost:8000/api/auth/register', {
+      const { data } = await axios.post('https://perfume-shop-backend-one.vercel.app/api/auth/register', {
         name,
         email,
         password,

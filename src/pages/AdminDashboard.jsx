@@ -71,7 +71,7 @@ const AdminDashboard = () => {
       dataPayload.append('image', imageFile); // Triggers upload.single('image') on backend
 
       // Direct post transmission with Multipart boundaries
-      await axios.post('http://localhost:8000/api/products', dataPayload, {
+      await axios.post('https://perfume-shop-backend-one.vercel.app/api/products', dataPayload, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

@@ -69,7 +69,7 @@ const Cart = () => {
                   <span className="text-emerald-400 font-medium">🎉 Congratulations! Your order qualifies for **Free Premium Vault Shipping**.</span>
                 ) : (
                   <span className="text-stone-300">
-                    Add <strong className="text-amber-400">Rs. {(shippingThreshold - subtotal).toLocaleString()}</strong> more to unlock **Free Shipping**.
+                    Add <strong className="text-amber-400">$ {(shippingThreshold - subtotal).toLocaleString()}</strong> more to unlock **Free Shipping**.
                   </span>
                 )}
                 <div className="w-full bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/90 shadow-md h-1.5 rounded-full mt-2.5 overflow-hidden">
@@ -120,7 +120,7 @@ const Cart = () => {
 
                       {/* Total Item Price Counter */}
                       <span className="text-xs font-bold text-stone-200 w-24 text-right hidden sm:block">
-                        Rs. {(item.price * item.qty).toLocaleString()}
+                        $ {(item.price * item.qty).toLocaleString()}
                       </span>
 
                       {/* Delete Icon Trigger */}
@@ -144,19 +144,19 @@ const Cart = () => {
                 Order Invoice
               </h3>
 
-              <div className="space-y-3 text-xs font-light text-amber-400 font-semibold">
-                <div className="flex justify-between">
+              <div className="space-y-3 text-xs font-light text-amber-400 font-bold">
+                <div className="flex justify-between text-rose-400 font-bold">
                   <span>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)} items)</span>
-                  <span className="text-stone-200">Rs. {subtotal.toLocaleString()}</span>
+                  <span className="text-stone-200">$ {subtotal.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between text-purple-300">
                   <span>Premium Vault Shipping</span>
-                  <span className="text-stone-200">{shipping === 0 ? "FREE" : `Rs. ${shipping}`}</span>
+                  <span className="text-rose-900 bg-amber-400 px-2 py-1 rounded-xl">{shipping === 0 ? "FREE" : `$ ${shipping}`}</span>
                 </div>
                 
                 <div className="flex justify-between text-base font-serif font-bold text-amber-400 pt-4 border-t border-rose-400">
                   <span>Total Amount</span>
-                  <span className='text-olive-400'>Rs. {totalAmount.toLocaleString()}</span>
+                  <span >$ {totalAmount.toLocaleString()}</span>
                 </div>
               </div>
 

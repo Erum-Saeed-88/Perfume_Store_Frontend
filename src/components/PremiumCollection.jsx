@@ -49,7 +49,7 @@ const PremiumCollection = () => {
   useEffect(() => {
     const getPremiumData = async () => {
       try {
-        const { data } = await axios.get('http://localhost:8000/api/products');
+        const { data } = await axios.get('https://perfume-shop-backend-one.vercel.app/api/products');
         if (Array.isArray(data)) {
           setProducts(data.slice(0, 12));
         } else if (data && Array.isArray(data.products)) {

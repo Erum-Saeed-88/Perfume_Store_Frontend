@@ -74,7 +74,7 @@ const Wishlist = () => {
                   {/* Delete Button Badge */}
                   <button 
                     onClick={() => removeFromWishlist(product._id)}
-                    className="absolute top-4 right-4 text-purple-600 cursor-pointer hover:text-rose-400 p-2.5 rounded-xl backdrop-blur-md transition-colors"
+                    className="absolute top-4 right-4 text-amber-400 cursor-pointer hover:text-rose-400 p-2.5 rounded-xl backdrop-blur-md transition-colors"
                     title="Remove from Wishlist"
                   >
                     <FaTrash className="w-3.5 h-3.5" />
@@ -84,10 +84,10 @@ const Wishlist = () => {
                 {/* Info Metadata Card */}
                 <div className="p-5 flex flex-col flex-grow justify-between">
                   <div>
-                    <span className="text-[10px] uppercase font-bold tracking-widest text-amber-400">
+                    <span className="text-[10px] uppercase font-bold tracking-widest text-purple-300">
                       {product.category}
                     </span>
-                    <h3 className="text-rose-400 font-serif font-medium text-xl mt-1 line-clamp-1">
+                    <h3 className="text-rose-400 font-serif font-medium text-medium mt-1 line-clamp-1">
                       {product.name}
                     </h3>
                     <p className="text-lg font-bold text-amber-400 font-sans mt-2">

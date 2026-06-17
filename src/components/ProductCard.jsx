@@ -109,17 +109,17 @@ const ProductCard = ({ product, setSelectedProduct }) => {
                 addToCartHandler();
               }}
               disabled={isOutOfStock}
-              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs uppercase cursor-pointer tracking-wider text-white transition-all ${
+              className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs uppercase cursor-pointer tracking-wider text-white transition-all ${
                 isOutOfStock 
-                  ? 'bg-stone-800 text-stone-500 cursor-not-allowed border border-stone-700/30' 
-                  : 'bg-gradient-to-r from-blue-600 via-purple-600 to-rose-400 hover:opacity-90 shadow-md active:scale-95'
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-500 cursor-pointer hover:bg-red-400 border border-stone-700/30' 
+                  : 'bg-gradient-to-r from-blue-500 to-purple-500 text-rose-400 hover:text-rose-400 hover:opacity-90 shadow-md active:scale-95'
               }`}
             >
-              <FaShoppingBag />
+              <FaShoppingBag className='animate-pulse text-[16px]' />
               {isOutOfStock ? 'Out of Stock' : 'Add'}
             </button>
           ) : (
-            <span className="text-[10px] font-semibold text-stone-500 tracking-wider uppercase border border-stone-800 px-2 py-1 rounded">
+            <span className="text-[10px] font-bold text-olive-400 hover:text-rose-400 tracking-wider uppercase bg-gradient-to-r from-blue-500 to-purple-500 p-2 rounded-full">
               Login to buy
             </span>
           )}

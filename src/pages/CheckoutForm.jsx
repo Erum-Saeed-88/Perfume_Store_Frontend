@@ -57,10 +57,10 @@ const CheckoutForm = () => {
       console.log("🚀 Firing payload vector matrix to backend server...", orderPayload);
 
       // 🔥 REAL API CALL: Direct hit onto port 8000
-      const response = await axios.post('http://localhost:8000/api/orders', orderPayload);
+      const response = await axios.post('https://perfume-shop-backend-one.vercel.app/api/orders', orderPayload);
 
       if (response.status === 201) {
-        alert("💎 Order Confirmed! Premium Fragrance locked and email sent successfully.");
+        console.log("💎 Order Confirmed & email sent successfully.");
         setCartItems([]); // Clear local shopping state
         navigate('/');
       }
@@ -74,83 +74,122 @@ const CheckoutForm = () => {
   };
 
   return (
-    <div className="bg-stone-950 text-stone-100 min-h-screen pt-28 pb-16 px-4 sm:px-6 lg:px-8">
+    <div className="bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60 text-stone-100 min-h-screen pt-28 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         
-        <h2 className="text-3xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-rose-300 mb-8 tracking-wide">
+        <h2 className="text-3xl font-serif font-bold text-rose-400 mb-8 tracking-wide">
           Secure Checkout Portal
         </h2>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* LEFT: Shipping and Payment Forms */}
-          <form onSubmit={handleCheckoutSubmit} className="lg:col-span-7 space-y-6">
+          <form onSubmit={handleCheckoutSubmit} className="lg:col-span-7 space-y-6 bg-transparent">
             
             {/* Delivery Info Block */}
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-4">
-              <h3 className="text-md font-semibold text-stone-200 tracking-wider uppercase flex items-center gap-2">
-                <FaTruck className="text-blue-400" /> 1. Shipping Details
+            <div className="bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60 border-2 border-rose-400 rounded-2xl p-6 shadow-xl space-y-4">
+              <h3 className="text-md font-bold text-rose-400 tracking-wider uppercase flex items-center gap-2">
+                <FaTruck className="text-rose-400 animate-pulse" /> Shipping Details
               </h3>
               
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">First Name</label>
-                  <input type="text" name="firstName" required onChange={handleInputChange} className="w-full bg-stone-950 border border-stone-800 p-3 rounded-xl text-sm text-stone-200 focus:outline-none focus:border-purple-500 transition-colors" />
+                  <label className="block text-[12px] uppercase tracking-wider font-bold text-rose-400 mb-1">First Name</label>
+                  <input type="text" name="firstName" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
                 </div>
                 <div>
-                  <label className="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">Last Name</label>
-                  <input type="text" name="lastName" required onChange={handleInputChange} className="w-full bg-stone-950 border border-stone-800 p-3 rounded-xl text-sm text-stone-200 focus:outline-none focus:border-purple-500 transition-colors" />
+                  <label className="block text-[12px] uppercase font-bold tracking-wider text-rose-400 mb-1">Last Name</label>
+                  <input type="text" name="lastName" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">Email Address</label>
-                <input type="email" name="email" required onChange={handleInputChange} className="w-full bg-stone-950 border border-stone-800 p-3 rounded-xl text-sm text-stone-200 focus:outline-none focus:border-purple-500 transition-colors" />
+                <label className="block text-[12px] uppercase font-bold tracking-wider text-rose-400 mb-1">Email</label>
+                <input type="email" name="email" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
               </div>
 
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">Street Address</label>
-                <input type="text" name="address" required onChange={handleInputChange} className="w-full bg-stone-950 border border-stone-800 p-3 rounded-xl text-sm text-stone-200 focus:outline-none focus:border-purple-500 transition-colors" placeholder="Apartment, suite, unit, building, floor, etc." />
+                <label className="block text-[12px] font-bold uppercase tracking-wider text-rose-400 mb-1">Address</label>
+                <input type="text" name="address" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="sm:col-span-2">
-                  <label className="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">City</label>
-                  <input type="text" name="city" required onChange={handleInputChange} className="w-full bg-stone-950 border border-stone-800 p-3 rounded-xl text-sm text-stone-200 focus:outline-none focus:border-purple-500 transition-colors" />
+                  <label className="block text-[12px] uppercase font-bold tracking-wider text-rose-400 mb-1">City</label>
+                  <input type="text" name="city" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
                 </div>
                 <div>
-                  <label className="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">Postal Code</label>
-                  <input type="text" name="zipCode" required onChange={handleInputChange} className="w-full bg-stone-950 border border-stone-800 p-3 rounded-xl text-sm text-stone-200 focus:outline-none focus:border-purple-500 transition-colors" />
+                  <label className="block text-[12px] font-bold uppercase tracking-wider text-rose-400 mb-1">Postal Code</label>
+                  <input type="text" name="zipCode" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-stone-400 mb-1">Phone Number</label>
-                <input type="tel" name="phone" required onChange={handleInputChange} className="w-full bg-stone-950 border border-stone-800 p-3 rounded-xl text-sm text-stone-200 focus:outline-none focus:border-purple-500 transition-colors" placeholder="03xx-xxxxxxx" />
+                <label className="block text-[12px] font-bold uppercase tracking-wider text-rose-400 mb-1">Phone Number</label>
+                <input type="tel" name="phone" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
               </div>
             </div>
 
             {/* Payment Section (Stripe UI Layout Mockup) */}
-            <div className="bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl space-y-4">
-              <h3 className="text-md font-semibold text-stone-200 tracking-wider uppercase flex items-center gap-2">
-                <FaRegCreditCard className="text-purple-400" /> 2. Payment Framework
+            <div className="bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60  border-2 border-rose-400  rounded-2xl p-6 shadow-xl space-y-4">
+              <h3 className="text-md font-bold text-rose-400 tracking-wider uppercase flex items-center gap-2">
+                <FaRegCreditCard className="text-rose-400 animate-pulse" /> Payment Framework
               </h3>
               
-              <div className="p-4 bg-stone-950 border border-stone-800 rounded-xl space-y-4">
-                <div className="flex justify-between items-center text-xs text-stone-400 border-b border-stone-800 pb-2">
+              <div className="p-4 bg-transparent shadow-md rounded-xl space-y-4">
+                <div className="flex justify-between items-center text-xs text-purple-300 border-b border-rose-400 pb-2">
                   <span>Stripe Secure Gateway</span>
                   <span className="text-emerald-400 flex items-center gap-1"><FaLock className="text-[10px]" /> Encrypted</span>
                 </div>
                 
                 {/* Simulated Card Elements */}
                 <div>
-                  <label className="block text-[10px] uppercase tracking-wider text-stone-500 mb-1">Card Credentials</label>
-                  <div className="w-full bg-stone-900 border border-stone-800 p-3 rounded-xl text-sm text-stone-300 flex items-center justify-between">
-                    <input type="text" maxLength="19" className="bg-transparent w-full focus:outline-none" placeholder="4242  4242  4242  4242" required defaultValue="4242 4242 4242 4242"/>
-                    <span className="text-stone-500 text-xs">MM/YY</span>
-                    <span className="text-stone-500 text-xs ml-3">CVC</span>
-                  </div>
-                </div>
+                    <label className="block text-[10px] font-bold uppercase tracking-wider text-rose-400 mb-1">Card Credentials</label>
+  
+  {/* 🎯 RESPONSIVE GRID MATRIX: Mobile par columns (gap-3), tablet/laptop par single line block */}
+  <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 w-full">
+    
+    {/* 💳 1. CARD NUMBER INPUT (Mobile: Full Width | Desktop: 6 Columns Out of 12) */}
+    <div className="sm:col-span-6 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-rose-400 transition-all">
+      <input 
+        type="text" 
+        name="cardNumber"
+        maxLength="19" 
+        onChange={handleInputChange}
+        className="w-full text-rose-400 font-medium placeholder-stone-400 focus:outline-none caret-purple-500" 
+        placeholder="4242  4242  4242  4242" 
+        required
+      />
+    </div>
+    
+    {/* 📅 2. EXPIRY DATE INPUT (Mobile: Full Width | Desktop: 3 Columns Out of 12) */}
+    <div className="sm:col-span-3 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-purple-500 transition-all">
+      <input 
+        type="text" 
+        name="cardExpiry"
+        maxLength="5" 
+        onChange={handleInputChange}
+        className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none caret-purple-500 text-left sm:text-center" 
+        placeholder="MM/YY" 
+        required
+      />
+    </div>
+    
+    {/* 🔒 3. CVC SECURITY CODE INPUT (Mobile: Full Width | Desktop: 3 Columns Out of 12) */}
+    <div className="sm:col-span-3 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-purple-500 transition-all">
+      <input 
+        type="password" 
+        name="cardCvc"
+        maxLength="4" 
+        onChange={handleInputChange}
+        className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none caret-purple-500 text-left sm:text-center" 
+        placeholder="CVC" 
+        required
+      />
+    </div>
+
+  </div>
+</div>
               </div>
             </div>
 
@@ -158,51 +197,51 @@ const CheckoutForm = () => {
             <button
               type="submit"
               disabled={loading || cartItems.length === 0}
-              className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-rose-400 text-white font-bold text-sm tracking-widest uppercase hover:opacity-95 shadow-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+              className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-rose-400 text-rose-400 font-bold text-sm tracking-widest uppercase hover:opacity-95 shadow-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              {loading ? 'Processing Transaction...' : `Authorize Payment • Rs. ${totalAmount.toLocaleString()}`}
+              {loading ? 'Processing Transaction...' : `Authorize Payment`}
             </button>
 
           </form>
 
           {/* RIGHT: Order Summary Block */}
-          <div className="lg:col-span-5 bg-stone-900 border border-stone-800 rounded-2xl p-6 shadow-xl sticky top-28 space-y-6">
-            <h3 className="text-md font-semibold text-stone-200 tracking-wider uppercase border-b border-stone-800 pb-3">
+          <div className="lg:col-span-5 bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60  border-2 border-rose-400  rounded-2xl p-6 shadow-xl sticky top-28 space-y-6">
+            <h3 className="text-md font-bold text-rose-400 tracking-wider text-center uppercase border-b border-rose-400 pb-3">
               Order Summary
             </h3>
 
             {cartItems.length === 0 ? (
-              <p className="text-xs text-stone-500 py-4 text-center">Your cart is empty.</p>
+              <p className="text-xs text-rose-400 py-4 text-center">Your cart is empty.</p>
             ) : (
-              <div className="divide-y divide-stone-800 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
+              <div className="divide-y divide-rose-400 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                 {cartItems.map((item) => (
                   <div key={item._id} className="flex gap-4 py-3 items-center justify-between">
                     <div className="flex gap-3 items-center">
                       <img src={item.image} alt={item.name} className="w-10 h-10 object-cover rounded-lg bg-stone-950 border border-stone-800" />
                       <div>
                         <h4 className="text-stone-200 text-xs font-serif font-medium line-clamp-1 max-w-[180px]">{item.name}</h4>
-                        <span className="text-[10px] text-stone-500 font-light">Qty: {item.qty} &bull; Rs. {item.price.toLocaleString()}</span>
+                        <span className="text-[10px] text-purple-300 font-light">Qty: {item.qty} &bull; $ {item.price.toLocaleString()}</span>
                       </div>
                     </div>
-                    <span className="text-stone-300 text-xs font-semibold">Rs. {(item.price * item.qty).toLocaleString()}</span>
+                    <span className="text-amber-400 text-xs font-semibold">$ {(item.price * item.qty).toLocaleString()}</span>
                   </div>
                 ))}
               </div>
             )}
 
             {/* Financial Calculations Grid */}
-            <div className="space-y-2 border-t border-stone-800 pt-4 text-xs font-light text-stone-400">
+            <div className="space-y-2 border-t border-rose-400 pt-4 text-xs font-semibold text-stone-200">
               <div className="flex justify-between">
                 <span>Subtotal</span>
-                <span className="text-stone-200">Rs. {subtotal.toLocaleString()}</span>
+                <span className="text-amber-400">$ {subtotal.toLocaleString()}</span>
               </div>
               <div className="flex justify-between">
-                <span>Premium Vault Shipping</span>
-                <span className="text-stone-200">{shipping === 0 ? "FREE" : `Rs. ${shipping}`}</span>
+                <span className='text-purple-300'>Premium Vault Shipping</span>
+                <span className="text-stone-200">{shipping === 0 ? "FREE" : `$ ${shipping}`}</span>
               </div>
-              <div className="flex justify-between text-base font-serif font-bold text-amber-400 pt-3 border-t border-stone-800/60">
+              <div className="flex justify-between text-base font-serif font-bold text-amber-400 pt-3 border-t border-rose-400">
                 <span>Total Amount</span>
-                <span>Rs. {totalAmount.toLocaleString()}</span>
+                <span>$ {totalAmount.toLocaleString()}</span>
               </div>
             </div>
           </div>

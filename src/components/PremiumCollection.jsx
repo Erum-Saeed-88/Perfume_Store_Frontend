@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-// 🎯 CRITICAL FIX: Destructuring Slider because of ES Modules/Vite object handling issue
 import SlickSlider from 'react-slick';
-import { FaShoppingBag, FaEye, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaShoppingBag, FaEye, FaChevronLeft, FaChevronRight, FaHeart, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // 🎯 FIXED: Navigation handling
 import { CartContext } from '../context/CartContext';
+import { AuthContext } from '../context/AuthContext'; // 🎯 FIXED: Auth context verification
 import ProductModal from './ProductModal';
 
 // Handle both default or structured injection for react-slick
@@ -27,9 +28,19 @@ const PremiumCollection = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
-  const { cartItems, setCartItems } = useContext(CartContext);
+  
+  // 🎯 RESPONSIVE POPUP STATES
+  const [popupMessage, setPopupMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+  const [isErrorPopup, setIsErrorPopup] = useState(false); // 🎯 Track error look
 
-  // 🎯 REAL TIME BREAKPOINT TRACKER: Tracks 357px and small devices instantly
+  const navigate = useNavigate(); // 🎯 Router link navigation trigger
+
+  // 🎯 FETCHING CONTEXT ENGINES
+  const { cartItems, setCartItems, wishlistItems, setWishlistItems } = useContext(CartContext);
+  const { user } = useContext(AuthContext); // 🎯 Check user session
+
+  // REAL TIME BREAKPOINT TRACKER
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth <= 540) {
@@ -39,9 +50,7 @@ const PremiumCollection = () => {
       }
     };
     
-    // Initial check
     handleResize();
-    
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -64,17 +73,63 @@ const PremiumCollection = () => {
     getPremiumData();
   }, []);
 
+  // 🎯 TRIGGER POPUP NOTIFICATION HANDLER
+  const triggerNotification = (message, isError = false) => {
+    setPopupMessage(message);
+    setIsErrorPopup(isError);
+    setShowPopup(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 2500);
+  };
+
   const addToCartHandler = (product) => {
     if (product.countInStock === 0) return;
+
+    // 🔐 AUTH GUARD: Agar user logged in nahi hai
+    if (!user) {
+      triggerNotification("Please register an account to start shopping! 🔐", true);
+      
+      // 📦 Save this pending product in localStorage so we can add it later
+      localStorage.setItem('pendingCartItem', JSON.stringify(product));
+
+      // Redirect to register after 1.5 seconds
+      setTimeout(() => {
+        navigate('/register'); 
+      }, 1500);
+      return;
+    }
+
+    // Standard core logic if user is authenticated
     const itemExists = cartItems.find((x) => x._id === product._id);
     if (itemExists) {
       setCartItems(cartItems.map((x) => x._id === product._id ? { ...x, qty: x.qty + 1 } : x));
     } else {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
+    
+    triggerNotification(`Added ${product.name} to luxury cart! 🛍️`);
   };
 
-  // Slider Settings (Used only for large screens now)
+  // 🎯 WISHLIST HANDLER FUNCTION INJECTION WITH AUTH CONTROL
+  const toggleWishlistHandler = (product) => {
+    if (!user) {
+      triggerNotification("Please login to create your wishlist vault! 🔐", true);
+      setTimeout(() => navigate('/register'), 1500);
+      return;
+    }
+
+    const itemExists = wishlistItems.find((x) => x._id === product._id);
+    if (itemExists) {
+      setWishlistItems(wishlistItems.filter((x) => x._id !== product._id));
+      triggerNotification(`Removed from wishlist 🤍`);
+    } else {
+      setWishlistItems([...wishlistItems, product]);
+      triggerNotification(`Added ${product.name} to wishlist! 💖`);
+    }
+  };
+
+  // Slider Settings
   const settings = {
     dots: true,
     infinite: false,
@@ -91,70 +146,103 @@ const PremiumCollection = () => {
 
   if (loading) return <div className="text-center py-10 text-stone-500 animate-pulse text-xs uppercase tracking-widest">Unlocking Premium Vault...</div>;
 
-  // 📦 CARD COMPONENT (Extracted into a clean variable to avoid code duplication)
-  const renderProductCard = (product, isMobileView) => (
-    <div key={product._id} className={`${isMobileView ? 'w-full' : 'px-3 h-full'} box-border`}>
-      <div className="bg-purple-300 rounded-2xl overflow-hidden flex flex-col h-full relative group shadow-lg w-full">
-        
-        {/* Image and Tag Container */}
-        <div className="relative pt-[110%] bg-purple-300 m-4 rounded-xl overflow-hidden">
-          <img src={product.image} alt={product.name} className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" />
+  // 📦 CARD COMPONENT RENDER ENGINE
+  const renderProductCard = (product, isMobileView) => {
+    const isInWishlist = wishlistItems.find(x => x._id === product._id);
+
+    return (
+      <div key={product._id} className={`${isMobileView ? 'w-full' : 'px-3 h-full'} box-border`}>
+        <div className="bg-purple-300 rounded-2xl overflow-hidden flex flex-col h-full relative group shadow-lg w-full">
           
-          <span className="absolute top-3 left-3 bg-rose-200 text-purple-500 font-bold text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-xl backdrop-blur-md">
-            {product.category}
-          </span>
-
-          {product.countInStock === 0 && (
-            <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-              <span className="bg-red-600/90 text-white font-bold text-[10px] tracking-widest px-3 py-1.5 rounded-lg uppercase">Sold Out</span>
-            </div>
-          )}
-        </div>
-
-        {/* Metadata Content */}
-        <div className="p-4 flex flex-col flex-grow justify-between bg-purple-300 w-full box-border">
-          <div>
-            <span className="text-[9px] uppercase tracking-wider text-stone-500 font-medium">{product.gender}</span>
-            <h3 className="text-rose-400 font-serif font-bold text-md mt-0.5 line-clamp-1">{product.name}</h3>
-            <p className="text-stone-400 text-xs font-light line-clamp-2 mt-1 leading-relaxed">{product.description}</p>
-          </div>
-
-          {/* Action Matrix Panel */}
-          <div className="mt-4 pt-3 border-t border-rose-400/60 flex items-center justify-between w-full">
-            <span className="text-xl font-bold text-amber-400 font-sans">$ {product.price?.toLocaleString()}</span>
+          {/* Image and Tag Container */}
+          <div className="relative pt-[110%] bg-purple-300 m-4 rounded-xl overflow-hidden">
+            <img 
+              src={product.image} 
+              alt={product.name} 
+              onClick={() => setSelectedProduct(product)}
+              className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 cursor-pointer" 
+            />
             
-            <div className="flex gap-2">
-              <button 
-                onClick={() => setSelectedProduct(product)}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 text-md text-stone-300 hover:text-rose-400 cursor-pointer p-2 rounded-full transition-colors"
-                title="View Details"
-              >
-                <FaEye />
-              </button>
+            <span className="absolute top-3 left-3 bg-rose-200 text-purple-500 font-bold text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-xl backdrop-blur-md">
+              {product.category}
+            </span>
 
-              <button
-                onClick={() => addToCartHandler(product)}
-                disabled={product.countInStock === 0}
-                className={`p-2 rounded-full text-white text-xs cursor-pointer hover:text-rose-400 transition-all ${
-                  product.countInStock === 0 ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-stone-600 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90'
-                }`}
-                title="Add to Vault Cart"
-              >
-                <FaShoppingBag />
-              </button>
+            <button 
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleWishlistHandler(product);
+              }}
+              className="absolute top-3 right-3 hover:text-rose-400 cursor-pointer p-2.5 rounded-xl text-stone-400 backdrop-blur-md transition-colors z-30"
+            >
+              <FaHeart className={isInWishlist ? "fill-rose-500 text-rose-500" : ""} />
+            </button>
+
+            {product.countInStock === 0 && (
+              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                <span className="bg-red-600/90 text-white font-bold text-[10px] tracking-widest px-3 py-1.5 rounded-lg uppercase">Sold Out</span>
+              </div>
+            )}
+          </div>
+
+          {/* Metadata Content */}
+          <div className="p-4 flex flex-col flex-grow justify-between bg-purple-300 w-full box-border">
+            <div onClick={() => setSelectedProduct(product)} className="cursor-pointer">
+              <span className="text-[9px] uppercase tracking-wider text-stone-500 font-medium">{product.gender}</span>
+              <h3 className="text-rose-400 font-serif font-bold text-md mt-0.5 line-clamp-1">{product.name}</h3>
+              <p className="text-stone-400 text-xs font-light line-clamp-2 mt-1 leading-relaxed">{product.description}</p>
+            </div>
+
+            {/* Action Matrix Panel */}
+            <div className="mt-4 pt-3 border-t border-rose-400/60 flex items-center justify-between w-full">
+              <span className="text-xl font-bold text-amber-400 font-sans">$ {product.price?.toLocaleString()}</span>
+              
+              <div className="flex gap-2">
+                <button 
+                  onClick={() => setSelectedProduct(product)}
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 text-md text-stone-300 hover:text-rose-400 cursor-pointer p-2 rounded-full transition-colors"
+                  title="View Details"
+                >
+                  <FaEye />
+                </button>
+
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    addToCartHandler(product);
+                  }}
+                  disabled={product.countInStock === 0}
+                  className={`p-2 rounded-full text-white text-xs cursor-pointer hover:text-rose-400 transition-all ${
+                    product.countInStock === 0 ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-stone-600 cursor-not-allowed' : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90'
+                  }`}
+                  title="Add to Vault Cart"
+                >
+                  <FaShoppingBag />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   return (
     <section className="bg-gradient-to-br from-blue-900 via-purple-900 to-rose-950/60 py-16 px-4 sm:px-8 lg:px-12 border-t border-stone-900/60 relative w-full box-border">
+      
+      {/* 🎯 FLOATING NOTIFICATION POPUP PANEL */}
+      {showPopup && (
+        <div className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%] sm:w-auto min-w-[280px] border px-4 py-3 rounded-xl shadow-2xl flex items-center justify-center gap-2.5 backdrop-blur-md bg-opacity-95 transition-all duration-300 ${
+          isErrorPopup ? 'bg-red-950 text-red-200 border-red-800' : 'bg-stone-950 text-stone-100 border-stone-800'
+        }`}>
+          {isErrorPopup ? <FaExclamationCircle className="text-red-400 text-sm shrink-0" /> : <FaCheckCircle className="text-emerald-400 text-sm shrink-0" />}
+          <span className="text-[11px] font-medium tracking-wide text-center line-clamp-1">
+            {popupMessage}
+          </span>
+        </div>
+      )}
+
       <div className="max-w-7xl mx-auto w-full">
-        
-        {/* Section Heading */}
         <div className="flex justify-center mb-15">
           <div className="text-center">
             <span className="text-[11px] uppercase tracking-widest font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-rose-400">Exclusive Shelf</span>
@@ -162,16 +250,13 @@ const PremiumCollection = () => {
           </div>
         </div>
 
-        {/* Dynamic Render Controller */}
         {!products || products.length === 0 ? (
           <p className="text-stone-500 text-xs py-6">The vault is currently preparing entries...</p>
         ) : isMobile ? (
-          /* 🔥 1. MOBILE CONDITION: Slick slider bypass, purely rendering native 1-Column full width layout */
           <div className="w-full flex flex-col gap-6 px-0 box-border">
             {products.map((product) => product && typeof product === 'object' && renderProductCard(product, true))}
           </div>
         ) : (
-          /* 💻 2. DESKTOP CONDITION: Render standard luxurious Slick Slider layout */
           <div className="relative premium-slider-wrapper">
             <Slider {...settings}>
               {products.map((product) => product && typeof product === 'object' && renderProductCard(product, false))}
@@ -179,18 +264,15 @@ const PremiumCollection = () => {
           </div>
         )}
 
-        {/* Slick Slide Slick-Dots Global Overwrite Styling */}
         <style>{`
           .premium-slider-wrapper .slick-dots li button:before { color: #57534e !important; }
           .premium-slider-wrapper .slick-dots li.slick-active button:before { color: #c084fc !important; }
           .premium-slider-wrapper .slick-dots { bottom: -35px; }
         `}</style>
 
-        {/* Dynamic Layered Pop-up Integration */}
         {selectedProduct && (
           <ProductModal product={selectedProduct} onClose={() => setSelectedProduct(null)} />
         )}
-
       </div>
     </section>
   );

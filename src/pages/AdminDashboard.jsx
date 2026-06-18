@@ -3,23 +3,22 @@ import axios from 'axios';
 import { FaPlusCircle, FaTrash, FaBoxOpen, FaDollarSign, FaTags, FaExclamationTriangle, FaCloudUploadAlt } from 'react-icons/fa';
 
 const AdminDashboard = () => {
-  // Main Products & Analytics States
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   
-  // ⚡ Add Product Form State (🎯 FIXED: Added 'brand' key into initial state configuration)
   const [formData, setFormData] = useState({
     name: '', brand: '', price: '', gender: 'Men', category: 'Eau De Perfume', countInStock: '', isLatest: false, description: ''
   });
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
-  // 1. Load Inventory Vault
+  // Load Inventory Vault
   const fetchInventory = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get('http://localhost:8000/api/products');
-      setProducts(data);
+      const { data } = await axios.get('https://perfume-shop-backend-one.vercel.app/api/products');
+      // 🎯 Safe mapping layer: checks if incoming payload is nested or clean array matrix
+      setProducts(Array.isArray(data) ? data : data.products || []);
     } catch (error) {
       console.error("Failed to stream inventory metrics", error);
     } finally {
@@ -31,7 +30,6 @@ const AdminDashboard = () => {
     fetchInventory();
   }, []);
 
-  // 2. Input Handlers
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData({
@@ -40,65 +38,61 @@ const AdminDashboard = () => {
     });
   };
 
-  // Image Input Selector Matrix
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file);
-      setImagePreview(URL.createObjectURL(file)); // Safe temporary browser preview
+      setImagePreview(URL.createObjectURL(file)); 
     }
   };
 
-  // 3. Create Product Submission Handler
+  // Create Product Submission Handler
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
       if (!imageFile) {
-        console.log("🚨 Please upload an elite olfactory visual asset (Image is required).");
+        alert("🚨 Please upload an elite olfactory visual asset (Image is required).");
         return;
       }
 
-      // 📦 Packaging data vectors into browser FormData object
       const dataPayload = new FormData();
       dataPayload.append('name', formData.name);
-      dataPayload.append('brand', formData.brand); // 🎯 FIXED: Appended brand metadata vectors to multipart transmission payload
+      dataPayload.append('brand', formData.brand); 
       dataPayload.append('price', formData.price);
       dataPayload.append('countInStock', formData.countInStock);
       dataPayload.append('gender', formData.gender);
       dataPayload.append('category', formData.category);
       dataPayload.append('isLatest', formData.isLatest);
       dataPayload.append('description', formData.description);
-      dataPayload.append('image', imageFile); // Triggers upload.single('image') on backend
+      dataPayload.append('image', imageFile); 
 
-      // Direct post transmission with Multipart boundaries
-      await axios.post('https://perfume-shop-backend-one.vercel.app/api/products', dataPayload, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+      // 🎯 MULTIPART ENGINE POST REQUEST
+      const response = await axios.post('https://perfume-shop-backend-one.vercel.app/api/products', dataPayload, {
+        headers: { 'Content-Type': 'multipart/form-data' }
       });
       
-      console.log("💎 Latest Fragrance collection successfully injected into the database vault!");
-      
-      // Reset Form Fields & States cleanly
-      setFormData({
-        name: '', brand: '', price: '', gender: 'Men', category: 'Eau De Perfume', countInStock: '', isLatest: false, description: ''
-      });
-      setImageFile(null);
-      setImagePreview(null);
-      
-      // Refresh dynamic ledger
-      fetchInventory();
+      if (response.status === 201 || response.data.success) {
+        alert("💎 Latest Fragrance collection successfully injected into Atlas database!");
+        
+        setFormData({
+          name: '', brand: '', price: '', gender: 'Men', category: 'Eau De Perfume', countInStock: '', isLatest: false, description: ''
+        });
+        setImageFile(null);
+        setImagePreview(null);
+        
+        // Instant structural state re-validation sync
+        await fetchInventory();
+      }
     } catch (error) {
-      console.log("Error adding product. Check backend terminal logs.");
-      console.error(error);
+      console.error("Error adding product context:", error.response?.data || error.message);
+      alert(`Pipeline break: ${error.response?.data?.message || "Check fields configuration"}`);
     }
   };
 
-  // 4. Delete Product Handler
   const deleteProductHandler = async (id) => {
     if (window.confirm("Are you absolutely sure you want to remove this elixir from the store?")) {
       try {
-        await axios.delete(`http://localhost:8000/api/products/${id}`);
+        await axios.delete(`https://perfume-shop-backend-one.vercel.app/api/products/${id}`);
         setProducts(products.filter(item => item._id !== id));
       } catch (error) {
         console.error("Deletion lifecycle failure", error);
@@ -106,7 +100,6 @@ const AdminDashboard = () => {
     }
   };
 
-  // 5. Computed Analytics Metrics for Admin Overview
   const totalItemsCount = products.length;
   const outOfStockCount = products.filter(item => item.countInStock === 0).length;
   const estimatedVaultValue = products.reduce((acc, curr) => acc + (Number(curr.price || 0) * (Number(curr.countInStock) || 0)), 0);
@@ -115,7 +108,6 @@ const AdminDashboard = () => {
     <div className="bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60 text-stone-100 min-h-screen pt-28 pb-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-12">
         
-        {/* Header Branding Desk */}
         <div>
           <h2 className="text-3xl font-serif font-bold text-rose-400 p-3 text-center tracking-wide">
             Sovereign Command Console
@@ -125,7 +117,7 @@ const AdminDashboard = () => {
           </p>
         </div>
 
-        {/* 📊 SECTION 1: METRICS ANALYTICS PANEL */}
+        {/* METRICS ANALYTICS PANEL */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-gradient-to-r from-blue-800 via-purple-900 to-rose-950/60 border-2 border-rose-400 p-6 rounded-2xl flex items-center justify-between shadow-md">
             <div>
@@ -160,17 +152,16 @@ const AdminDashboard = () => {
           </div>
         </div>
 
-        {/* SECTION 2: GRID CORE split FOR INJECTION & LISTING */}
+        {/* GRID STRUCTURE */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* LEFT CONTAINER: ADD PRODUCT SECURE FORM (5 Columns) */}
+          {/* ADD PRODUCT SECURE FORM */}
           <div className="lg:col-span-5 bg-gradient-to-r from-blue-800 via-purple-900 to-rose-950/60 border-2 border-rose-400 text-rose-400 p-6 rounded-2xl shadow-2xl space-y-6">
             <h3 className="text-xl font-bold tracking-wider uppercase text-rose-400 border-b border-amber-400 pb-3 text-center flex items-center justify-center gap-2">
               Add New Masterpiece
             </h3>
 
             <form onSubmit={handleFormSubmit} className="space-y-4 text-xs shadow-md p-4 rounded-xl">
-              {/* 🎯 FIXED: Made Name and Brand inputs dynamic side-by-side inside a grid element */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-rose-400 font-bold uppercase tracking-wider mb-1">Fragrance Name</label>
@@ -193,7 +184,6 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              {/* Real Premium File Upload System */}
               <div>
                 <label className="block text-rose-400 font-bold uppercase tracking-wider mb-1">Bottle Essence Graphic</label>
                 <div className="flex items-center justify-center w-full">
@@ -246,7 +236,7 @@ const AdminDashboard = () => {
             </form>
           </div>
 
-          {/* RIGHT CONTAINER: LIVE INVENTORY DATABASE LEDGER (7 Columns) */}
+          {/* LIVE INVENTORY DATABASE LEDGER */}
           <div className="lg:col-span-7 bg-gradient-to-r from-blue-800 via-purple-900 to-rose-950/60 border border-rose-400 text-rose-400 p-6 rounded-2xl shadow-2xl space-y-4">
             <h3 className="text-xl font-bold tracking-wider uppercase text-center text-rose-400 border-b border-amber-400 pb-3">
               Live Store Ledger
@@ -272,7 +262,6 @@ const AdminDashboard = () => {
                       <tr key={item._id} className="group hover:bg-stone-950/40 transition-colors">
                         <td className="py-3 pr-2 flex items-center gap-3">
                           <img src={item.image || null} alt="" className="w-8 h-8 rounded object-cover bg-stone-950 border border-stone-800" />
-                          {/* 🎯 FIXED: Wrapped layout inside a column flex box and injected a sleek brand tracking indicator right under the perfume name */}
                           <div className="flex flex-col">
                             <span className="font-serif font-medium text-stone-100 line-clamp-1 max-w-[120px]" title={item.name}>{item.name}</span>
                             {item.brand && <span className="text-[10px] text-amber-500/80 font-medium italic mt-0.5">by {item.brand}</span>}

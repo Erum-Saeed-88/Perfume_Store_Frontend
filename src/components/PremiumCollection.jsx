@@ -108,7 +108,7 @@ const PremiumCollection = () => {
       setCartItems([...cartItems, { ...product, qty: 1 }]);
     }
     
-    triggerNotification(`Added ${product.name} to luxury cart! 🛍️`);
+    triggerNotification(`Added ${product.name} to luxury cart!`);
   };
 
   // 🎯 WISHLIST HANDLER FUNCTION INJECTION WITH AUTH CONTROL
@@ -125,7 +125,7 @@ const PremiumCollection = () => {
       triggerNotification(`Removed from wishlist 🤍`);
     } else {
       setWishlistItems([...wishlistItems, product]);
-      triggerNotification(`Added ${product.name} to wishlist! 💖`);
+      triggerNotification(`Added ${product.name} to wishlist!`);
     }
   };
 
@@ -187,14 +187,14 @@ const PremiumCollection = () => {
           {/* Metadata Content */}
           <div className="p-4 flex flex-col flex-grow justify-between bg-purple-300 w-full box-border">
             <div onClick={() => setSelectedProduct(product)} className="cursor-pointer">
-              <span className="text-[9px] uppercase tracking-wider text-stone-500 font-medium">{product.gender}</span>
+              <span className="text-[10px] uppercase tracking-wider text-purple-500 font-bold">{product.gender}</span>
               <h3 className="text-rose-400 font-serif font-bold text-md mt-0.5 line-clamp-1">{product.name}</h3>
               <p className="text-stone-400 text-xs font-light line-clamp-2 mt-1 leading-relaxed">{product.description}</p>
             </div>
 
             {/* Action Matrix Panel */}
             <div className="mt-4 pt-3 border-t border-rose-400/60 flex items-center justify-between w-full">
-              <span className="text-xl font-bold text-amber-400 font-sans">$ {product.price?.toLocaleString()}</span>
+              <span className="text-xl font-bold text-stone-600 font-sans">$ {product.price?.toLocaleString()}</span>
               
               <div className="flex gap-2">
                 <button 

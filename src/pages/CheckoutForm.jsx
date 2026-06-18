@@ -167,7 +167,7 @@ const CheckoutForm = () => {
       <input 
         type="text" 
         name="cardExpiry"
-        maxLength="5" 
+        maxLength="4" 
         onChange={handleInputChange}
         className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none caret-purple-500 text-left sm:text-center" 
         placeholder="MM/YY" 
@@ -180,7 +180,7 @@ const CheckoutForm = () => {
       <input 
         type="password" 
         name="cardCvc"
-        maxLength="4" 
+        maxLength="3" 
         onChange={handleInputChange}
         className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none caret-purple-500 text-left sm:text-center" 
         placeholder="CVC" 

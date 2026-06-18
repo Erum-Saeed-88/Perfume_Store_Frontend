@@ -37,7 +37,7 @@ const Register = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/90 shadow-lg py-4 px-4 py-12">
       {/* Dynamic Gradient Card Container */}
-      <div className="p-[2px] rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-rose-400 max-w-md w-full">
+      <div className="p-[2px] rounded-2xl bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950 max-w-md w-full">
         <div className="bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/90 shadow-lg py-4 border-2 border-rose-400 rounded-2xl p-8 w-full text-stone-100">
           
           <h2 className="text-3xl font-serif text-center mb-2 text-rose-400 underline tracking-wide">Create Account</h2>
@@ -56,7 +56,7 @@ const Register = () => {
                 type="text" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)}
-                className="w-full bg-purple-300 border-2 border-stone-400 p-3 rounded-lg text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" 
+                className="w-full bg-purple-300 border-2 border-stone-400 p-3 rounded-lg text-sm text-stone-900 placeholder-stone-400 focus:outline-none focus:border-rose-400 transition-colors" 
                 placeholder="Enter your full name" 
                 required 
               />
@@ -68,7 +68,7 @@ const Register = () => {
                 type="email" 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-purple-300 border-2 border-stone-400 p-3 rounded-lg text-sm text-rose-400 focus:outline-none focus:border-rose-400" 
+                className="w-full bg-purple-300 border-2 border-stone-400 placeholder-stone-400 p-3 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-rose-400" 
                 placeholder="Enter your email" 
                 required 
               />
@@ -80,7 +80,7 @@ const Register = () => {
                 type="password" 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-purple-300 border-2 border-stone-400 p-3 rounded-lg text-sm text-rose-400 focus:outline-none focus:border-rose-500 transition-colors" 
+                className="w-full bg-purple-300 border-2 border-stone-400 p-3 rounded-lg text-sm placeholder-stone-400 text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" 
                 placeholder="Enter your password" 
                 required 
               />

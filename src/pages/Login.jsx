@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/90 shadow-lg py-4 px-4 py-12">
       {/* Dynamic Gradient Card Container */}
-      <div className="p-[2px] rounded-2xl bg-gradient-to-r from-blue-600 via-purple-600 to-rose-400 max-w-md w-full shadow-2xl border-2 border-rose-400">
+      <div className="p-[2px] rounded-2xl bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950 max-w-md w-full shadow-2xl border-2 border-rose-400">
         <div className="bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/90 rounded-2xl p-8 w-full text-stone-100">
           
           <h2 className="text-3xl font-serif text-center mb-2 underline text-rose-400 tracking-wide">Welcome Back</h2>
@@ -54,7 +54,7 @@ const Login = () => {
                 type="email" 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-purple-300 border-2 border-gray-400 p-3 rounded-lg text-sm text-rose-400 focus:outline-none focus:border-purple-700 transition-colors" 
+                className="w-full bg-purple-300 p-3 rounded-lg text-sm text-stone-900 border-2 border-stone-400 placeholder-stone-400 focus:outline-none focus:border-rose-400 transition-colors" 
                 placeholder="Enter your email" 
                 required 
               />
@@ -66,7 +66,7 @@ const Login = () => {
                 type="password" 
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full bg-purple-300 border-2 border-gray-400 p-3 rounded-lg text-sm text-rose-400 focus:outline-none focus:border-purple-700 transition-colors" 
+                className="w-full bg-purple-300 border-2 border-stone-400 p-3 placeholder-stone-400 rounded-lg text-sm text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" 
                 placeholder="Enter your password" 
                 required 
               />

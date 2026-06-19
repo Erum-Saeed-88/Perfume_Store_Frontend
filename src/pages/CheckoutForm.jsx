@@ -98,38 +98,38 @@ const CheckoutForm = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-[12px] uppercase tracking-wider font-bold text-rose-400 mb-1">First Name</label>
-                  <input type="text" name="firstName" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
+                  <input type="text" name="firstName" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" />
                 </div>
                 <div>
                   <label className="block text-[12px] uppercase font-bold tracking-wider text-rose-400 mb-1">Last Name</label>
-                  <input type="text" name="lastName" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
+                  <input type="text" name="lastName" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" />
                 </div>
               </div>
 
               <div>
                 <label className="block text-[12px] uppercase font-bold tracking-wider text-rose-400 mb-1">Email</label>
-                <input type="email" name="email" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
+                <input type="email" name="email" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" />
               </div>
 
               <div>
                 <label className="block text-[12px] font-bold uppercase tracking-wider text-rose-400 mb-1">Address</label>
-                <input type="text" name="address" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
+                <input type="text" name="address" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="sm:col-span-2">
                   <label className="block text-[12px] uppercase font-bold tracking-wider text-rose-400 mb-1">City</label>
-                  <input type="text" name="city" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
+                  <input type="text" name="city" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" />
                 </div>
                 <div>
                   <label className="block text-[12px] font-bold uppercase tracking-wider text-rose-400 mb-1">Postal Code</label>
-                  <input type="text" name="zipCode" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
+                  <input type="text" name="zipCode" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" />
                 </div>
               </div>
 
               <div>
                 <label className="block text-[12px] font-bold uppercase tracking-wider text-rose-400 mb-1">Phone Number</label>
-                <input type="tel" name="phone" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-rose-400 focus:outline-none focus:border-rose-400 transition-colors" />
+                <input type="tel" name="phone" required onChange={handleInputChange} className="w-full bg-purple-300 p-3 rounded-xl text-sm text-stone-900 focus:outline-none focus:border-rose-400 transition-colors" />
               </div>
             </div>
 
@@ -184,7 +184,7 @@ const CheckoutForm = () => {
                             maxLength="19" 
                             value={formData.cardNumber}
                             onChange={handleInputChange}
-                            className="w-full text-rose-400 font-medium placeholder-stone-400 focus:outline-none" 
+                            className="w-full text-stone-900 font-medium placeholder-stone-400 focus:outline-none" 
                             placeholder="4242  4242  4242  4242" 
                             required={paymentMethod === 'Stripe'}
                           />
@@ -196,7 +196,7 @@ const CheckoutForm = () => {
                             maxLength="5" 
                             value={formData.cardExpiry}
                             onChange={handleInputChange}
-                            className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none text-left sm:text-center" 
+                            className="w-full bg-transparent text-stone-900 font-medium placeholder-stone-400 focus:outline-none text-left sm:text-center" 
                             placeholder="MM/YY" 
                             required={paymentMethod === 'Stripe'}
                           />
@@ -208,7 +208,7 @@ const CheckoutForm = () => {
                             maxLength="3" 
                             value={formData.cardCvc}
                             onChange={handleInputChange}
-                            className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none text-left sm:text-center" 
+                            className="w-full bg-transparent text-stone-900 font-medium placeholder-stone-400 focus:outline-none text-left sm:text-center" 
                             placeholder="CVC" 
                             required={paymentMethod === 'Stripe'}
                           />

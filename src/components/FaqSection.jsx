@@ -39,13 +39,10 @@ const FaqSection = () => {
         
         {/* Section Heading Matrix */}
         <div className="text-center mb-16">
-          <span className="text-[11px] uppercase tracking-widest font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-rose-300">
-            Connoisseur Intelligence
-          </span>
-          <h2 className="text-4xl font-bold text-center transition-opacity text-transparent bg-clip-text bg-gradient-to-b from-blue-600 via-purple-600 to-rose-300 tracking-wide mb-8">
+          <h2 className="text-4xl font-bold text-center transition-opacity text-transparent bg-clip-text bg-gradient-to-b from-blue-600 via-purple-600 to-rose-300 tracking-wide mb-3">
             Frequently Asked Queries
           </h2>
-          <p className="text-sm text-stone-600 font-light max-w-md mx-auto mt-2 leading-relaxed">
+          <p className="text-sm text-stone-600 font-light max-w-md mx-auto leading-relaxed">
             Everything you need to navigate the exquisite world of premium artisanal extraits.
           </p>
         </div>

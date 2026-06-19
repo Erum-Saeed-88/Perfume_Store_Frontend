@@ -34,7 +34,7 @@ const ShopFilters = ({ gender, setGender, category, setCategory, sort, setSort }
           <select 
             value={category} 
             onChange={(e) => setCategory(e.target.value)}
-            className="bg-stone-200 border border-stone-800 text-rose-400 text-xs font-bold cursor-pointer py-3 px-4 rounded-xl focus:outline-none focus:border-rose-400 transition-colors"
+            className="bg-stone-200 border border-stone-800 text-rose-400 text-sm font-bold cursor-pointer py-3 px-4 rounded-xl focus:outline-none focus:border-rose-400 transition-colors"
           >
             <option value="">All Categories</option>
             {categories.map((cat) => (

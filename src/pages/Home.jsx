@@ -17,20 +17,22 @@ const Home = () => {
       {/* 2. Premium Infinite Ticker Section */}
       <TickerSection />
 
-
+      {/* 3. About Section with short story */}
       <AboutStory />
 
-      {/* 3. Premium Grid Carousel Section with Integrated View Modals */}
+      {/* 4. Premium Grid Carousel Section with Integrated View Modals */}
       <PremiumCollection />
 
-        {/* 4. Dynamic Stats & Milestones Section with Animated Counters */}
+        {/* 5. Dynamic Stats & Milestones Section with Animated Counters */}
       <StatsSection />
 
-        {/* 5. Future Sections: Testimonials, Newsletter, etc. */}
+        {/* 6. Future Sections: Testimonials, Newsletter, etc. */}
         <TeamSection />
 
+        {/*7. Fraquent Ask Questions section */}
         <FaqSection />
-
+        
+        {/* 8. Newsletter Section */}
         <NewsletterSection />
     </div>
   );

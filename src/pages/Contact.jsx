@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaClock, FaPaperPlane } from 'react-icons/fa';
 import TeamSection from '../components/TeamSection';
 import ContactHero from '../components/ContactHero';
+import NewsletterSection from '../components/NewsletterSection';
 
 const Contact = () => {
   const [formState, setFormState] = useState({ name: '', email: '', subject: '', message: '' });
@@ -165,6 +166,8 @@ const Contact = () => {
 
       </div>
       <TeamSection />
+
+      <NewsletterSection />
     </div>
     </>
   );

@@ -26,9 +26,9 @@ const Footer = () => {
         <div>
           <h4 className="text-sm font-bold uppercase tracking-widest text-rose-400 mb-4">Explore</h4>
           <ul className="space-y-2 text-xs font-light">
-            <li><Link to="/" className="hover:text-amber-400 hover:underline font-semibold transition-colors">Home</Link></li>
-            <li><Link to="/shop" className="hover:text-amber-400 hover:underline font-semibold transition-colors">Shop All</Link></li>
-            <li><Link to="/about" className="hover:text-amber-400 hover:underline font-semibold transition-colors">Our Story</Link></li>
+            <li><Link to="/" className="hover:text-amber-400 hover:underline font-semibold text-purple-300 transition-colors">Home</Link></li>
+            <li><Link to="/shop" className="hover:text-amber-400 hover:underline text-purple-300 font-semibold transition-colors">Shop All</Link></li>
+            <li><Link to="/about" className="hover:text-amber-400 hover:underline text-purple-300 font-semibold transition-colors">Our Story</Link></li>
           </ul>
         </div>
 
@@ -36,9 +36,9 @@ const Footer = () => {
         <div>
           <h4 className="text-sm font-bold uppercase tracking-widest text-rose-400 mb-4">Collections</h4>
           <ul className="space-y-2 text-xs font-light">
-            <li><Link to="/shop?category=Men" className="hover:text-amber-400 hover:underline font-semibold transition-colors">Men's Fragrances</Link></li>
-            <li><Link to="/shop?category=Women" className="hover:text-amber-400 hover:underline font-semibold transition-colors">Women's Perfumes</Link></li>
-            <li><Link to="/wishlist" className="hover:text-amber-400 hover:underline font-semibold transition-colors">Your Wishlist</Link></li>
+            <li><Link to="/shop?category=Men" className="hover:text-amber-400 hover:underline text-purple-300 font-semibold transition-colors">Men's Fragrances</Link></li>
+            <li><Link to="/shop?category=Women" className="hover:text-amber-400 hover:underline text-purple-300 font-semibold transition-colors">Women's Perfumes</Link></li>
+            <li><Link to="/wishlist" className="hover:text-amber-400 hover:underline font-semibold text-purple-300 transition-colors">Your Wishlist</Link></li>
           </ul>
         </div>
 
@@ -47,7 +47,7 @@ const Footer = () => {
           <h4 className="text-sm font-semibold uppercase tracking-widest text-rose-400 mb-4">Guaranteed</h4>
           <div className="flex items-center gap-2 bg-transparent shadow-md p-3 border border-stone-800">
             <FaRegCheckCircle className="w-5 h-5 text-amber-400" />
-            <span className="text-[11px] font-light text-stone-400">100% Secure Checkout via Stripe Payments.</span>
+            <span className="text-[11px] font-light text-purple-300">100% Secure Checkout via Stripe Payments.</span>
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ const NewsletterSection = () => {
   };
 
   return (
-    <section className="bg-gradient-to-br from-blue-900 via-purple-900 to-rose-950/60 py-20 px-4 sm:px-8 border-b border-purple-300 lg:px-12 border-t border-stone-900/60 relative w-full box-border overflow-hidden">
+    <section className="bg-gradient-to-br from-blue-900 via-purple-900 to-rose-950/60 py-20 px-4 sm:px-8 border-b border-purple-300 lg:px-12 relative w-full box-border overflow-hidden">
       
       {/* Background Decorative Ambient Orbs for Premium Visual Depth */}
       <div className="absolute -top-24 -left-20 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -42,7 +42,7 @@ const NewsletterSection = () => {
           </span>
         </div>
 
-        <span className="text-[11px] uppercase tracking-[0.25em] font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-rose-300">
+        <span className="text-[11px] uppercase tracking-[0.25em] p-2 rounded-xl shadow-md animate-pulse font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-rose-300">
           The Sovereign Circle
         </span>
         

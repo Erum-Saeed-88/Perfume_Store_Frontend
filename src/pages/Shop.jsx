@@ -53,8 +53,22 @@ const Shop = () => {
 
   if (loading) {
     return (
-      <div className="text-center py-20 bg-stone-950 text-stone-500 animate-pulse text-xs uppercase tracking-widest">
-        Loading Luxury Inventory...
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-stone-950 via-purple-950 to-stone-950 text-stone-100">
+        <div className="relative flex items-center justify-center">
+          {/* Outer Rotating Glowing Ring */}
+          <div className="w-12 h-12 rounded-full border-4 border-t-rose-400 border-r-amber-400/30 border-b-purple-500/20 border-l-transparent animate-spin"></div>
+          
+          {/* Inner Counter-Rotating Pulse Ring */}
+          <div className="absolute w-8 h-8 rounded-full border-4 border-t-transparent border-r-purple-400 border-b-transparent border-l-rose-400 animate-spin [animation-duration:1.5s] reverse"></div>
+          
+          {/* Core Center Luxury Dot */}
+          <div className="absolute w-2 h-2 rounded-full bg-gradient-to-r from-amber-400 to-rose-400 animate-pulse"></div>
+        </div>
+        
+        {/* Cinematic Subtitle Typography */}
+        <p className="mt-8 text-xs font-light uppercase tracking-[0.3em] text-rose-400/80 animate-pulse">
+          Curating Olfactory Masterpieces...
+        </p>
       </div>
     );
   }

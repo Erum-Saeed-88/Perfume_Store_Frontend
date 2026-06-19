@@ -19,8 +19,8 @@ const StatsSection = () => {
     };
 
     const animateCounters = () => {
-      const targets = { clients: 15000, fragrances: 120, boutiques: 8, rating: 5 };
-      const duration = 2000; // 2 seconds animation time
+      const targets = { clients: 25000, fragrances: 200, boutiques: 18, rating: 15 };
+      const duration = 3000; // 3 seconds animation time
       const steps = 50;
       const stepTime = duration / steps;
       let currentStep = 0;

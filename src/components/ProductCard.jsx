@@ -55,7 +55,7 @@ const ProductCard = ({ product, setSelectedProduct }) => {
     }
 
     // 🎯 TRIGGER: Cart item added notification
-    triggerNotification(`Added ${product.name} to luxury cart! 🛍️`);
+    triggerNotification(`Added ${product.name} to luxury cart!`);
   };
 
   const toggleWishlistHandler = () => {
@@ -74,7 +74,7 @@ const ProductCard = ({ product, setSelectedProduct }) => {
       triggerNotification(`Removed from wishlist 🤍`);
     } else {
       setWishlistItems([...wishlistItems, product]);
-      triggerNotification(`Added ${product.name} to wishlist! 💖`);
+      triggerNotification(`Added ${product.name} to wishlist!`);
     }
   };
 

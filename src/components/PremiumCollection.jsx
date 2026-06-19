@@ -144,7 +144,27 @@ const PremiumCollection = () => {
     ]
   };
 
-  if (loading) return <div className="text-center py-10 text-stone-500 animate-pulse text-xs uppercase tracking-widest">Unlocking Premium Vault...</div>;
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-stone-950 via-purple-950 to-stone-950 text-stone-100">
+        <div className="relative flex items-center justify-center">
+          {/* Outer Rotating Glowing Ring */}
+          <div className="w-12 h-12 rounded-full border-4 border-t-rose-400 border-r-amber-400/30 border-b-purple-500/20 border-l-transparent animate-spin"></div>
+          
+          {/* Inner Counter-Rotating Pulse Ring */}
+          <div className="absolute w-8 h-8 rounded-full border-4 border-t-transparent border-r-purple-400 border-b-transparent border-l-teal-400 animate-spin [animation-duration:1.5s] reverse"></div>
+          
+          {/* Core Center Luxury Dot */}
+          <div className="absolute w-2 h-2 rounded-full bg-gradient-to-r from-amber-400 to-rose-400 animate-pulse"></div>
+        </div>
+        
+        {/* Cinematic Subtitle Typography */}
+        <p className="mt-8 text-xs font-light uppercase tracking-[0.3em] text-rose-400/80 animate-pulse">
+          Premium Masterpieces...
+        </p>
+      </div>
+    )
+  }
 
   // 📦 CARD COMPONENT RENDER ENGINE
   const renderProductCard = (product, isMobileView) => {
@@ -245,7 +265,7 @@ const PremiumCollection = () => {
       <div className="max-w-7xl mx-auto w-full">
         <div className="flex justify-center mb-15">
           <div className="text-center">
-            <span className="text-[11px] uppercase tracking-widest font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-rose-400">Exclusive Shelf</span>
+            <span className="text-[11px] uppercase tracking-widest font-bold text-transparent bg-clip-text bg-gradient-to-r p-2 rounded-xl shadow-md animate-pulse from-blue-400 to-rose-400">Exclusive Shelf</span>
             <h2 className="text-3xl md:text-3xl font-serif font-bold text-rose-400 tracking-wide mt-1">Premium Collection</h2>
           </div>
         </div>

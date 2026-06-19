@@ -1,17 +1,21 @@
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaLock, FaRegCreditCard, FaTruck } from 'react-icons/fa';
+import { FaLock, FaRegCreditCard, FaTruck, FaMoneyBillWave } from 'react-icons/fa';
 import { CartContext } from '../context/CartContext';
-import axios from 'axios'; // 🎯 Import Axios for real API injection
+import axios from 'axios'; 
 
 const CheckoutForm = () => {
   const { cartItems, setCartItems } = useContext(CartContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  
+  // 🎯 COD vs Stripe Toggle Method Configuration
+  const [paymentMethod, setPaymentMethod] = useState('Stripe'); 
 
   // Form States
   const [formData, setFormData] = useState({
-    firstName: '', lastName: '', email: '', address: '', city: '', zipCode: '', phone: ''
+    firstName: '', lastName: '', email: '', address: '', city: '', zipCode: '', phone: '',
+    cardNumber: '', cardExpiry: '', cardCvc: '' // Form state controls
   });
 
   // Calculate Order Summary Metrics
@@ -23,13 +27,12 @@ const CheckoutForm = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 🎯 FIXED: Real API Integration Handler
+  // 🎯 UPDATED: Real API Integration with Multi-Gateway Selector Architecture
   const handleCheckoutSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // 📦 Order Items Formatting for MongoDB validation schema compatibility
       const formattedOrderItems = cartItems.map(item => ({
         product: item._id,
         name: item.name,
@@ -38,7 +41,7 @@ const CheckoutForm = () => {
         price: item.price
       }));
 
-      // 🛠️ Construct Payload Database Mapping Vectors
+      // 🛠️ Construct Dynamic Payload Database Mapping Vectors
       const orderPayload = {
         customerName: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
@@ -50,18 +53,18 @@ const CheckoutForm = () => {
         },
         orderItems: formattedOrderItems,
         totalPrice: totalAmount,
-        paymentMethod: 'Stripe', // Auto lock to stripe system for current scenario
-        stripeTokenId: 'tok_visa' // 💳 Stripe Test Mode ka Token pass kar rahe hain dynamic integration tak
+        paymentMethod: paymentMethod, // Dynamic Injection ('Stripe' or 'COD')
+        // 💳 Dynamic Stripe fallback identifier vector
+        stripeTokenId: paymentMethod === 'Stripe' ? 'tok_visa' : 'COD_BYPASS' 
       };
 
-      console.log("🚀 Firing payload vector matrix to backend server...", orderPayload);
+      console.log(`🚀 Firing [${paymentMethod}] payload matrix to backend server...`, orderPayload);
 
-      // 🔥 REAL API CALL: Direct hit onto port 8000
       const response = await axios.post('https://perfume-shop-backend-one.vercel.app/api/orders', orderPayload);
 
       if (response.status === 201) {
-        console.log("💎 Order Confirmed & email sent successfully.");
-        setCartItems([]); // Clear local shopping state
+        console.log("💎 Order Confirmed via luxury system sequence mapping.");
+        setCartItems([]); 
         navigate('/');
       }
 
@@ -130,82 +133,118 @@ const CheckoutForm = () => {
               </div>
             </div>
 
-            {/* Payment Section (Stripe UI Layout Mockup) */}
-            <div className="bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60  border-2 border-rose-400  rounded-2xl p-6 shadow-xl space-y-4">
+            {/* Payment Section (Dynamic Stripe / COD Wrapper Setup) */}
+            <div className="bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60 border-2 border-rose-400 rounded-2xl p-6 shadow-xl space-y-5">
               <h3 className="text-md font-bold text-rose-400 tracking-wider uppercase flex items-center gap-2">
                 <FaRegCreditCard className="text-rose-400 animate-pulse" /> Payment Framework
               </h3>
+
+              {/* 🎛️ NEW: HIGH-FIDELITY SELECTOR BUTTONS */}
+              <div className="grid grid-cols-2 gap-4">
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('Stripe')}
+                  className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold tracking-wider uppercase text-xs border transition-all cursor-pointer ${
+                    paymentMethod === 'Stripe'
+                      ? 'bg-rose-400/20 border-rose-400 text-rose-400 shadow-md'
+                      : 'bg-stone-900/40 border-stone-800 text-stone-400 hover:text-stone-200'
+                  }`}
+                >
+                  <FaRegCreditCard className="text-sm" /> Card (Stripe)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setPaymentMethod('COD')}
+                  className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-bold tracking-wider uppercase text-xs border transition-all cursor-pointer ${
+                    paymentMethod === 'COD'
+                      ? 'bg-rose-400/20 border-rose-400 text-rose-400 shadow-md'
+                      : 'bg-stone-900/40 border-stone-800 text-stone-400 hover:text-stone-200'
+                  }`}
+                >
+                  <FaMoneyBillWave className="text-sm" /> Cash On Delivery
+                </button>
+              </div>
               
               <div className="p-4 bg-transparent shadow-md rounded-xl space-y-4">
-                <div className="flex justify-between items-center text-xs text-purple-300 border-b border-rose-400 pb-2">
-                  <span>Stripe Secure Gateway</span>
-                  <span className="text-emerald-400 flex items-center gap-1"><FaLock className="text-[10px]" /> Encrypted</span>
-                </div>
-                
-                {/* Simulated Card Elements */}
-                <div>
-                    <label className="block text-[10px] font-bold uppercase tracking-wider text-rose-400 mb-1">Card Credentials</label>
-  
-  {/* 🎯 RESPONSIVE GRID MATRIX: Mobile par columns (gap-3), tablet/laptop par single line block */}
-  <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 w-full">
-    
-    {/* 💳 1. CARD NUMBER INPUT (Mobile: Full Width | Desktop: 6 Columns Out of 12) */}
-    <div className="sm:col-span-6 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-rose-400 transition-all">
-      <input 
-        type="text" 
-        name="cardNumber"
-        maxLength="19" 
-        onChange={handleInputChange}
-        className="w-full text-rose-400 font-medium placeholder-stone-400 focus:outline-none caret-purple-500" 
-        placeholder="4242  4242  4242  4242" 
-        required
-      />
-    </div>
-    
-    {/* 📅 2. EXPIRY DATE INPUT (Mobile: Full Width | Desktop: 3 Columns Out of 12) */}
-    <div className="sm:col-span-3 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-purple-500 transition-all">
-      <input 
-        type="text" 
-        name="cardExpiry"
-        maxLength="4" 
-        onChange={handleInputChange}
-        className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none caret-purple-500 text-left sm:text-center" 
-        placeholder="MM/YY" 
-        required
-      />
-    </div>
-    
-    {/* 🔒 3. CVC SECURITY CODE INPUT (Mobile: Full Width | Desktop: 3 Columns Out of 12) */}
-    <div className="sm:col-span-3 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-purple-500 transition-all">
-      <input 
-        type="password" 
-        name="cardCvc"
-        maxLength="3" 
-        onChange={handleInputChange}
-        className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none caret-purple-500 text-left sm:text-center" 
-        placeholder="CVC" 
-        required
-      />
-    </div>
-
-  </div>
-</div>
+                {paymentMethod === 'Stripe' ? (
+                  <>
+                    <div className="flex justify-between items-center text-xs text-purple-300 border-b border-rose-400 pb-2">
+                      <span>Stripe Secure Gateway</span>
+                      <span className="text-emerald-400 flex items-center gap-1"><FaLock className="text-[10px]" /> Encrypted</span>
+                    </div>
+                    
+                    {/* Simulated Card Elements */}
+                    <div>
+                      <label className="block text-[10px] font-bold uppercase tracking-wider text-rose-400 mb-1">Card Credentials</label>
+                      <div className="grid grid-cols-1 sm:grid-cols-12 gap-3 w-full">
+                        <div className="sm:col-span-6 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-rose-400 transition-all">
+                          <input 
+                            type="text" 
+                            name="cardNumber"
+                            maxLength="19" 
+                            value={formData.cardNumber}
+                            onChange={handleInputChange}
+                            className="w-full text-rose-400 font-medium placeholder-stone-400 focus:outline-none" 
+                            placeholder="4242  4242  4242  4242" 
+                            required={paymentMethod === 'Stripe'}
+                          />
+                        </div>
+                        <div className="sm:col-span-3 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-purple-500 transition-all">
+                          <input 
+                            type="text" 
+                            name="cardExpiry"
+                            maxLength="5" 
+                            value={formData.cardExpiry}
+                            onChange={handleInputChange}
+                            className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none text-left sm:text-center" 
+                            placeholder="MM/YY" 
+                            required={paymentMethod === 'Stripe'}
+                          />
+                        </div>
+                        <div className="sm:col-span-3 bg-purple-300 p-3 rounded-xl flex items-center focus-within:border-purple-500 transition-all">
+                          <input 
+                            type="password" 
+                            name="cardCvc"
+                            maxLength="3" 
+                            value={formData.cardCvc}
+                            onChange={handleInputChange}
+                            className="w-full bg-transparent text-rose-400 font-medium placeholder-stone-400 focus:outline-none text-left sm:text-center" 
+                            placeholder="CVC" 
+                            required={paymentMethod === 'Stripe'}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  /* 🎯 COD INFORMATIONAL NOTICE MATRIX */
+                  <div className="border border-amber-400/30 bg-amber-400/5 p-4 rounded-xl text-center space-y-2">
+                    <FaMoneyBillWave className="mx-auto text-xl text-amber-400 animate-bounce" />
+                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider">Cash On Delivery Selection</h4>
+                    <p className="text-[11px] text-stone-400 max-w-sm mx-auto leading-relaxed">
+                      You will fulfill the total transaction value in physical currency directly to the logistical courier agent upon arrival of your olfactory vault assets.
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Main Submit Checkout Button Wrapper */}
+            {/* Dynamic Label Button Context */}
             <button
               type="submit"
               disabled={loading || cartItems.length === 0}
               className="w-full py-4 rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-rose-400 text-rose-400 font-bold text-sm tracking-widest uppercase hover:opacity-95 shadow-xl transition-all disabled:opacity-40 disabled:cursor-not-allowed"
             >
-              {loading ? 'Processing Transaction...' : `Authorize Payment`}
+              {loading 
+                ? 'Processing Transaction...' 
+                : paymentMethod === 'Stripe' ? 'Authorize Payment' : 'Confirm COD Order'
+              }
             </button>
 
           </form>
 
           {/* RIGHT: Order Summary Block */}
-          <div className="lg:col-span-5 bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60  border-2 border-rose-400  rounded-2xl p-6 shadow-xl sticky top-28 space-y-6">
+          <div className="lg:col-span-5 bg-gradient-to-r from-blue-900 via-purple-900 to-rose-950/60 border-2 border-rose-400 rounded-2xl p-6 shadow-xl sticky top-28 space-y-6">
             <h3 className="text-md font-bold text-rose-400 tracking-wider text-center uppercase border-b border-rose-400 pb-3">
               Order Summary
             </h3>
